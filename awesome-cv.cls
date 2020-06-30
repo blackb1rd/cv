@@ -73,8 +73,7 @@
 % Needed to manage math fonts
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
-% (https://github.com/posquit0/latex-fontawesome)
-\RequirePackage{fontawesome}
+\RequirePackage{fontawesome5}
 \RequirePackage[default,opentype]{sourcesanspro}
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
@@ -162,8 +161,6 @@
 %-------------------------------------------------------------------------------
 % Set the FontAwesome font to be up-to-date.
 \let\FA\relax
-\newfontfamily\FA[Path=\@fontdir]{FontAwesome}
-% Set font for header (default is Roboto)
 \newfontfamily\headerfont[
   Path=\@fontdir,
   UprightFont=*-Regular,
@@ -496,7 +493,7 @@
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedinSquare\acvHeaderIconSep\@linkedin}%
+          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedin\acvHeaderIconSep\@linkedin}%
         }%
       \ifthenelse{\isundefined{\@twitter}}%
         {}%
