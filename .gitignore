@@ -7,17 +7,11 @@
 *.fls
 *.out
 *.toc
+*.pdf
 
 ## Intermediate documents:
 *.dvi
 *-converted-to.*
 
-### Editor ###
-## Vim & Emacs temp files:
-.*sw[op]
-*~
 
-### Mac OS X ###
-## Mac OS X metadata files:
-*.DS_Store
-
+tags
