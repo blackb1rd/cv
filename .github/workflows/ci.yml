@@ -18,12 +18,9 @@ jobs:
         shell: bash
         run: |
           make
-          apt-get update
-          apt-get install -y zip
-          zip cv.zip examples/*.pdf
       - name: Archive CV artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: archive-cv
+          name: cv
           path: |
-            cv.zip
+            examples/*.pdf
