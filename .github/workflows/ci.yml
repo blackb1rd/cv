@@ -18,10 +18,10 @@ jobs:
         shell: bash
         run: |
           make
+          zip cv.zip examples/*.pdf
       - name: Archive CV artifacts
         uses: actions/upload-artifact@v2
         with:
           name: archive-cv
           path: |
-            zip cv.zip examples/*.pdf
             cv.zip
