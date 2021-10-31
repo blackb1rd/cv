@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build CV
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - name: Compile
+        shell: bash
+        run: |
+          make
+      - name: Archive CV artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: archive-cv
+          path: |
+            examples/*.pdf
