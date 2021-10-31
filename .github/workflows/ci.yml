@@ -18,8 +18,6 @@ jobs:
         shell: bash
         run: |
           make
-          uname -a
-          lsb_release -a
           apt-get update
           apt-get install -y zip
           zip cv.zip examples/*.pdf
