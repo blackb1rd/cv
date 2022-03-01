@@ -10,18 +10,20 @@
 
 %---------------------------------------------------------
   \cventry
-    {Software Engineer} % Job title
+    {Software/Test Engineer} % Job title
     {Magnecomp} % Organization
     {Wang Noi, Ayutthaya, Thailand} % Location
     {August 2021 - Present} % Date(s)
-    {Skill: C\# programming language, Winform framework, PCB design} % Skill
+    {Skill: C\# programming language, Winform framework, RF PCB design} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
       \item {Develop the existing software to support new machine production.}
-        \item {Implement Process flow of machine.}
         \item {Implement image processing by using Cognex library.}
-        \item {Implement WAGO I/O.}
-        \item {Implement calibration method.}
+        \item {Improve stability test station that using LCR Impedance measurement
+          by improving S-parameter of system, noise floor.}
+        \item {Implement self-validation test system by using S-parameter to
+          check insertion loss of system.}
+        \item {Design RF PCB to connect between coaxial cable.}
       \end{cvitems}
     }
 
@@ -32,25 +34,27 @@
     {Kookot, Lumlookka Patumthanee, Thailand} % Location
     {April 2018 - July 2021} % Date(s)
     {Skill: C\#/VB.net programming language, Winform/WPF framework, MVVM
-    pattern, asynchronous programming, Mysql, Fiber optic, High frequency, PCB
-    design, SPI, I2C, MDIO, Mach-Zehnder modulator} % Skill
+    pattern, asynchronous programming, Mysql, Fiber optic, High frequency(GHz), PCB
+    design for DC circuit to check open/short, SPI, I2C, MDIO, Mach-Zehnder modulator} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
-        \item {Working in NPI product for designment and improvement
-          process, deployment tester, debugging and development software, design
-          PCBs for jig \& fixture, design databases to store the test result.}
-        \item {Help Customer to design Process flow.}
-        \item {Development software to analysis
-          production failure.}
-        \item {Design/Develop/Implement Tester for testing product related to
-          fiber optic by using I2C protocal, MDIO protocal, test software.}
-        \item {Design PCBs(Material FR4 with Hard gold surface for pogo pin
-          contacting) for open/short circuit test station using KiCad software}
-        \item {Desing PCBs(special Material, connector high temperature) and
-          fixture for high temperature to test the product in burning
+        \item {Working in NPI product to design and improve process,
+          deploy tester, debug and develop software, design PCBs(using KiCad)
+          and jig \& fixture(FreeCad).}
+        \item {CFP2 product, improve/fixed bug software the whole process,
+          implement test station for specific test CFP2 module using MDIO
+          protocal}
+        \item {Attachment fiber optic to fixture on PCB, develop software to
+          control Macom driver with using I2C protocal for controling the laser
+          during attach fiber optic.}
+        \item {Design PCBs (Material FR4 with Hard gold surface for pogo pin
+          contacting around 80 pad) for testing open/short circuit}
+        \item {Desing PCBs(special Material for burning process with
+          connector high temperature and surface finish ENIPIG for wirebond
+          process) to place on fixture and use fixture to hold the device
+          around 800um, the fixture is used for burning/measurement/wirebond
           process.}
-        \item {Design database to track the production data.}
-        \item {Implement/Improve Fiber Alignment method on ADST machine}
+        \item {Implement/Improve Fiber Alignment/Lens Alignment method on ADST machine}
       \end{cvitems}
     }
 
@@ -91,12 +95,12 @@
     programming, CentOS, Linux, SIL4, ATO, ATP } % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
-       \item {Implement test case for electric train with specific condition, wayside communication
-          data, region automatic train operation data, Train Protection ( RATP
-          ) in CITYFLO 650 project)}
+       \item {Implement test case for electric train with specific condition,
+         wayside communication data, region automatic train operation data,
+          Train Protection ( RATP ) in CITYFLO 650 project)}
        \item {Redesign train data simulation software architecture by changing
           from synchronous architecture to asynchronous architecture to reducing test
-          time from 12 Hrs to 8 Hrs and also reducing the random failures from 
+          time from 12 Hrs to 8 Hrs and also reducing the random failures from
           Python Global Interpreter Lock ( GIL ) during socket communication.}
        \item {Setup Centos OS environment and design test software architecture
        to test platform screen door control system as SIL4 requirement.}
@@ -119,16 +123,12 @@
            process/development software.}
          \item {Developed a tool written in Perl to parse test data from raw data production line and send the test
          data to Fabrinet database system.}
-         \item {Developed a tool to control cutting CNC machine with Fabrinet database connection via
-           RS232 to select the good device for cutting, and avoid human error with reduce production time
-           when compare with old method.}
-         \item {Working in NPI fiber optic test process to setup instrument/deployment test machine/debugging
-         software/development software.}
-         \item {Transfer Fiber Optic transceiver test process project from development project ( Canada customer
-                side ) to manufacturing Fabrinet at Thailand.- Implement statistics theory to
-                 the test machine for reducing test time.}
-         \item {Contact customer to plan for setup instrument tester at Fabrinet or
-                setup the process.}
+         \item {Developed software to control CNC cutting machine via RS232 with
+           communicate to Fabrinet database to select the good device for cutting,
+           and avoid human error or reduce production time.}
+         \item {Transfer CFP2 Fiber Optic transceiver test process project from development project ( Canada customer
+                side ) to manufacturing Fabrinet at Thailand.}
+         \item {Macom OSA product, improve/implement test software.}
          \item {Contact Fabrinet IT department for setup Customer network side or
                 design the database customer product.}
       \end{cvitems}
