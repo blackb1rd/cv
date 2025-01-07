@@ -13,13 +13,13 @@ jobs:
       image: texlive/texlive:latest
     steps:
       - name: Git checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Compile
         shell: bash
         run: |
           make
       - name: Archive CV artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: cv
           path: |
