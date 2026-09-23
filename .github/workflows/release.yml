@@ -3,6 +3,20 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+        default: patch
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -17,17 +31,58 @@ jobs:
         shell: bash
         run: |
           make
-          apt-get update
-          apt-get install -y zip
-          zip --junk-path cv.zip examples/*.pdf
       - name: Archive CV artifacts
         uses: actions/upload-artifact@v4
         with:
           name: cv
           path: |
             examples/*.pdf
+
+  release:
+    name: Tag and release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Bump version tag
+        id: version
+        env:
+          EVENT: ${{ github.event_name }}
+          BUMP: ${{ inputs.bump }}
+        run: |
+          if [ "$EVENT" != "workflow_dispatch" ]; then
+            echo "tag=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          LATEST=$(git tag --list 'v*.*.*' --sort=-v:refname | head -n1)
+          LATEST=${LATEST:-v0.0.0}
+          IFS=. read -r MAJOR MINOR PATCH <<< "${LATEST#v}"
+          case "$BUMP" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+          TAG="v$MAJOR.$MINOR.$PATCH"
+          echo "Bumping $LATEST -> $TAG"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+      - name: Download CV artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: cv
+          path: cv
+      - name: Zip CV
+        run: zip --junk-paths cv.zip cv/*.pdf
       - name: Create Release
-        id: create_release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.tag }}
           files: cv.zip
