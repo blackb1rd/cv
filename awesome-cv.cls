@@ -200,10 +200,10 @@
 % For elements of entry
 \newcommand*{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
 \newcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\scshape\color{graytext} #1}}
-\newcommand*{\entryskillstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\upshape\color{graytext} #1}}
+\newcommand*{\entryskillstyle}[1]{{\fontsize{8pt}{10.5pt}\bodyfont\upshape\color{graytext} #1\par}}
 \newcommand*{\entrydatestyle}[1]{{\fontsize{8pt}{1em}\headerfont\slshape\color{graytext} #1}}
 \newcommand*{\entrylocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
-\newcommand*{\descriptionstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\upshape\color{text} #1}}
+\newcommand*{\descriptionstyle}[1]{{\fontsize{9pt}{12pt}\bodyfontlight\upshape\color{text} #1}}
 
 % For elements of subentry
 \newcommand*{\subentrytitlestyle}[1]{{\fontsize{8pt}{1em}\bodyfont\mdseries\color{graytext} #1}}
@@ -220,7 +220,7 @@
 
 % For elements of skill
 \newcommand*{\skilltypestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\color{text} #1}}
+\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{12pt}\bodyfontlight\color{text} #1\par}}
 
 % For elements of the cover letter
 \newcommand*{\lettersectionstyle}[1]{{\fontsize{14pt}{1em}\bodyfont\bfseries\color{text}\@sectioncolor #1}}
@@ -396,6 +396,10 @@
 % Others
 \newcommand{\acvSectionTopSkip}{3mm}
 \newcommand{\acvSectionContentTopSkip}{2.5mm}
+% Space between entries, and width of the skill-type column in the skills table
+\newcommand{\acvEntrySkip}{3mm}
+\newcommand{\acvSkillTypeWidth}{4.4cm}
+\newcommand{\acvSkillSep}{3mm}
 
 
 %-------------------------------------------------------------------------------
@@ -595,16 +599,19 @@
 % Define an entry of cv information
 % Usage: \cventry{<position>}{<organization>}{<location>}{<date>}{<skill>}{<description>}
 \newcommand*{\cventry}[6]{%
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \ifempty{#2#3}
-      {\entrypositionstyle{#1} & \entrydatestyle{#4} \\}
-    {\entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-    \entrypositionstyle{#1} & \entrydatestyle{#4} \\
-    \entryskillstyle{#5} \\}
-    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#6}}
-  \end{tabular*}%
+  {\setlength{\parindent}{0pt}\raggedright
+  \if\relax\detokenize{#2#3}\relax
+    {\fontsize{8pt}{11pt}\selectfont\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}
+  \else
+    {\fontsize{10pt}{13pt}\selectfont\entrytitlestyle{#2}\hfill\entrylocationstyle{#3}\par}\nopagebreak
+    {\fontsize{8pt}{11pt}\selectfont\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}\nopagebreak
+    \if\relax\detokenize{#5}\relax\else
+      \vspace{0.5mm}\entryskillstyle{#5}\nopagebreak
+    \fi
+  \fi
+  \vspace{0.8mm}
+  \descriptionstyle{#6}\par}%
+  \vspace{\acvEntrySkip}%
 }
 
 % Define an environment for cvsubentry
@@ -654,9 +661,9 @@
   \vspace{\acvSectionContentTopSkip}
   \vspace{-2.0mm}
   \begin{center}
-    \setlength\tabcolsep{1ex}
+    \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth * \real{0.9}}}
+    \begin{tabular*}{\textwidth}{@{} R{\acvSkillTypeWidth} @{\hspace{\acvSkillSep}} L{\textwidth - \acvSkillTypeWidth - \acvSkillSep} @{}}
 }{%
     \end{tabular*}
   \end{center}
@@ -664,12 +671,11 @@
 % Define a line of cv information(skill)
 % Usage: \cvskill{<type>}{<skillset>}
 \newcommand*{\cvskill}[2]{%
-	\skilltypestyle{#1} & \skillsetstyle{#2} \\
+	\skilltypestyle{#1} & \skillsetstyle{#2} \\[1.2mm]
 }
 
 % Define an environment for cvitems(for cventry)
 \newenvironment{cvitems}{%
-  \vspace{-4.0mm}
   \begin{justify}
   \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
     \setlength{\parskip}{0pt}
@@ -677,7 +683,6 @@
 }{%
   \end{itemize}
   \end{justify}
-  \vspace{-4.0mm}
 }
 
 
