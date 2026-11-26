@@ -78,18 +78,21 @@ You can see [PDF](https://raw.githubusercontent.com/posquit0/Awesome-CV/master/e
 
 #### Requirements
 
-A full TeX distribution is assumed.  [Various distributions for different operating systems (Windows, Mac, \*nix) are available](http://tex.stackexchange.com/q/55437) but TeX Live is recommended.
-You can [install TeX from upstream](http://tex.stackexchange.com/q/1092) (recommended; most up-to-date) or use `sudo apt-get install texlive-full` if you really want that.  (It's generally a few years behind.)
+[OrbStack](https://orbstack.dev) as the Docker engine on macOS (`brew install --cask orbstack`). TeX Live runs inside the
+[`texlive/texlive`](https://hub.docker.com/r/texlive/texlive) image, so nothing else needs to be installed.
 
 #### Usage
 
 At a command prompt, run
 
 ```bash
-$ xelatex {your-cv}.tex
+$ orb start
+$ docker --context orbstack build --output build .
 ```
 
-This should result in the creation of ``{your-cv}.pdf``
+`orb start` does nothing if OrbStack is already running. This should result in the creation of ``build/resume.pdf``.
+Add `--pull` to use the newest TeX Live image, as CI does. CI runs the same build with the Docker engine that comes
+with GitHub's Linux runners, since OrbStack is a macOS app.
 
 
 ## Credit
