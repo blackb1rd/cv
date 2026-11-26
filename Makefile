@@ -1,14 +1,14 @@
-.PHONY: examples
+.PHONY: all clean
 
 CC = xelatex
-EXAMPLES_DIR = examples
-RESUME_DIR = examples/resume
-RESUME_SRCS = $(shell find $(RESUME_DIR) -name '*.tex')
+BUILD_DIR = build
+SECTIONS = $(wildcard sections/*.tex)
 
-examples: $(foreach x, resume, $x.pdf)
+all: $(BUILD_DIR)/resume.pdf
 
-resume.pdf: $(EXAMPLES_DIR)/resume.tex $(RESUME_SRCS)
-	$(CC) -output-directory=$(EXAMPLES_DIR) $<
+$(BUILD_DIR)/resume.pdf: resume.tex awesome-cv.cls $(SECTIONS)
+	mkdir -p $(BUILD_DIR)
+	$(CC) -output-directory=$(BUILD_DIR) $<
 
 clean:
-	rm -rf $(EXAMPLES_DIR)/*.pdf
+	rm -rf $(BUILD_DIR)

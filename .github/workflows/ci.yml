@@ -23,4 +23,4 @@ jobs:
         with:
           name: cv
           path: |
-            examples/*.pdf
+            build/*.pdf
