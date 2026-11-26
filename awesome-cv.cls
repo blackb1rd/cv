@@ -74,7 +74,6 @@
 \RequirePackage{unicode-math}
 % Needed to use icons from font-awesome
 \RequirePackage{fontawesome5}
-\RequirePackage[default,opentype]{sourcesanspro}
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
 % Needed to deal a paragraphs
@@ -118,12 +117,13 @@
 %-------------------------------------------------------------------------------
 %                Configuration for colors
 %-------------------------------------------------------------------------------
-% Gray-scale colors
+% Gray-scale colors, following Material Design text emphasis levels on white.
+% Contrast ratios against white are noted; all meet WCAG AA (4.5:1).
 \definecolor{white}{HTML}{FFFFFF}
 \definecolor{black}{HTML}{000000}
-\definecolor{darkgray}{HTML}{333333}
-\definecolor{gray}{HTML}{5D5D5D}
-\definecolor{lightgray}{HTML}{999999}
+\definecolor{darkgray}{HTML}{212121}  % high emphasis, Grey 900 (16:1)
+\definecolor{gray}{HTML}{616161}      % medium emphasis, Grey 700 (6.2:1)
+\definecolor{lightgray}{HTML}{757575} % low emphasis, Grey 600 (4.6:1)
 % Basic colors
 \definecolor{green}{HTML}{C2E15F}
 \definecolor{orange}{HTML}{FDA333}
@@ -131,7 +131,7 @@
 \definecolor{red}{HTML}{FB4485}
 \definecolor{blue}{HTML}{6CE0F1}
 % Text colors
-\definecolor{darktext}{HTML}{414141}
+\definecolor{darktext}{HTML}{212121}
 \colorlet{text}{darkgray}
 \colorlet{graytext}{gray}
 \colorlet{lighttext}{lightgray}
@@ -144,7 +144,14 @@
 \definecolor{awesome-nephritis}{HTML}{27AE60}
 \definecolor{awesome-concrete}{HTML}{95A5A6}
 \definecolor{awesome-darknight}{HTML}{131A28}
-\colorlet{awesome}{awesome-red}
+% Material Design accent colors: dark, low-saturation shades that stay calm
+% on the eye and keep at least 5.5:1 contrast on white
+\definecolor{material-navy}{HTML}{0D47A1}     % Blue 900 (8.6:1), formal navy
+\definecolor{material-teal}{HTML}{00695C}     % Teal 800 (6.6:1)
+\definecolor{material-blue}{HTML}{1565C0}     % Blue 800 (5.8:1)
+\definecolor{material-indigo}{HTML}{3949AB}   % Indigo 600 (7.7:1)
+\definecolor{material-bluegrey}{HTML}{455A64} % Blue Grey 700 (7.2:1)
+\colorlet{awesome}{material-navy}
 
 % Boolean value to switch section color highlighting
 \newbool{acvSectionColorHighlight}
@@ -177,60 +184,85 @@
   BoldItalicFont=*-MediumItalic,
 ]{Roboto}
 
-\newcommand*{\footerfont}{\sourcesanspro}
-\newcommand*{\bodyfont}{\sourcesanspro}
-\newcommand*{\bodyfontlight}{\sourcesansprolight}
+% Body text uses Roboto too, so the whole document is one type family as in
+% Material Design. Bold maps to Medium (500), Material's weight for titles.
+\setmainfont{Roboto}[
+  Path=\@fontdir,
+  UprightFont=*-Regular,
+  ItalicFont=*-Italic,
+  BoldFont=*-Medium,
+  BoldItalicFont=*-MediumItalic,
+]
+\newfontfamily\bodyfontfamily[
+  Path=\@fontdir,
+  UprightFont=*-Regular,
+  ItalicFont=*-Italic,
+  BoldFont=*-Medium,
+  BoldItalicFont=*-MediumItalic,
+]{Roboto}
+
+\newcommand*{\footerfont}{\bodyfontfamily}
+\newcommand*{\bodyfont}{\bodyfontfamily}
+% Light weights are hard to read at small print sizes, so "light" body text
+% is set in Regular as well
+\newcommand*{\bodyfontlight}{\bodyfontfamily}
 
 %-------------------------------------------------------------------------------
 %                Configuration for styles
 %-------------------------------------------------------------------------------
 % Configure styles for each CV elements
+% A small Material-style type scale: Medium (\bfseries) for titles, Regular
+% for body, grey for secondary details, and the accent color only for section
+% titles, roles and links. No small caps or italics are used for hierarchy.
 % For fundamental structures
-\newcommand*{\headerfirstnamestyle}[1]{{\fontsize{32pt}{1em}\headerfont\bfseries\color{text} #1}}
-\newcommand*{\headerlastnamestyle}[1]{{\fontsize{32pt}{1em}\headerfont\bfseries\color{text} #1}}
-\newcommand*{\headerpositionstyle}[1]{{\fontsize{7.6pt}{1em}\bodyfont\scshape\color{awesome} #1}}
-\newcommand*{\headeraddressstyle}[1]{{\fontsize{8pt}{1em}\headerfont\itshape\color{lighttext} #1}}
-\newcommand*{\headersocialstyle}[1]{{\fontsize{6.8pt}{1em}\headerfont\color{text} #1}}
-\newcommand*{\headerquotestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\itshape\color{darktext} #1}}
-\newcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\scshape\color{lighttext} #1}}
-\newcommand*{\sectionstyle}[1]{{\fontsize{16pt}{1em}\bodyfont\bfseries\color{text}\@sectioncolor #1}}
-\newcommand*{\subsectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\scshape\textcolor{text}{#1}}}
-\newcommand*{\paragraphstyle}{\fontsize{9pt}{1em}\bodyfontlight\upshape\color{text}}
+\newcommand*{\headerfirstnamestyle}[1]{{\fontsize{30pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\headerlastnamestyle}[1]{{\fontsize{30pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\headerpositionstyle}[1]{{\fontsize{11pt}{1em}\bodyfont\color{awesome} #1}}
+\newcommand*{\headeraddressstyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\color{graytext} #1}}
+\newcommand*{\headersocialstyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\color{text} #1}}
+\newcommand*{\headerquotestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\itshape\color{graytext} #1}}
+\newcommand*{\headericonstyle}[1]{{\color{awesome}#1}}
+\newcommand*{\footerstyle}[1]{{\fontsize{7.5pt}{1em}\footerfont\color{lighttext} #1}}
+\newcommand*{\sectionstyle}[1]{{\fontsize{14pt}{1em}\bodyfont\bfseries\color{awesome} #1}}
+\newcommand*{\subsectionstyle}[1]{{\fontsize{11pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\paragraphstyle}{\fontsize{9pt}{12.5pt}\bodyfont\upshape\color{text}}
 
 % For elements of entry
-\newcommand*{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\entrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\scshape\color{graytext} #1}}
-\newcommand*{\entryskillstyle}[1]{{\fontsize{8pt}{10.5pt}\bodyfont\upshape\color{graytext} #1\par}}
-\newcommand*{\entrydatestyle}[1]{{\fontsize{8pt}{1em}\headerfont\slshape\color{graytext} #1}}
-\newcommand*{\entrylocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
-\newcommand*{\descriptionstyle}[1]{{\fontsize{9pt}{12pt}\bodyfontlight\upshape\color{text} #1}}
+\newcommand*{\entrytitlestyle}[1]{{\fontsize{10.5pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\entrypositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\bfseries\color{awesome} #1}}
+\newcommand*{\entryskillstyle}[1]{{\fontsize{8pt}{11pt}\bodyfont\upshape\color{graytext} #1\par}}
+\newcommand*{\entrydatestyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\upshape\color{graytext} #1}}
+\newcommand*{\entrylocationstyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\upshape\color{graytext} #1}}
+\newcommand*{\descriptionstyle}[1]{{\fontsize{9pt}{12.5pt}\bodyfont\upshape\color{text} #1}}
+% Bold lead-in at the start of a bullet, e.g. \itemlabel{Observability:}
+\newcommand*{\itemlabelstyle}[1]{{\bodyfont\bfseries\color{text} #1}}
 
 % For elements of subentry
-\newcommand*{\subentrytitlestyle}[1]{{\fontsize{8pt}{1em}\bodyfont\mdseries\color{graytext} #1}}
-\newcommand*{\subentrypositionstyle}[1]{{\fontsize{7pt}{1em}\bodyfont\scshape\color{graytext} #1}}
-\newcommand*{\subentrydatestyle}[1]{{\fontsize{7pt}{1em}\bodyfontlight\slshape\color{graytext} #1}}
-\newcommand*{\subentrylocationstyle}[1]{{\fontsize{7pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
-\newcommand*{\subdescriptionstyle}[1]{{\fontsize{8pt}{1em}\bodyfontlight\upshape\color{text} #1}}
+\newcommand*{\subentrytitlestyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\subentrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\color{awesome} #1}}
+\newcommand*{\subentrydatestyle}[1]{{\fontsize{8pt}{1em}\bodyfont\upshape\color{graytext} #1}}
+\newcommand*{\subentrylocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\upshape\color{graytext} #1}}
+\newcommand*{\subdescriptionstyle}[1]{{\fontsize{8.5pt}{12pt}\bodyfont\upshape\color{text} #1}}
 
 % For elements of honor
 \newcommand*{\honortitlestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext} #1}}
-\newcommand*{\honorpositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\honordatestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext} #1}}
-\newcommand*{\honorlocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{awesome} #1}}
+\newcommand*{\honorpositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\honordatestyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\color{graytext} #1}}
+\newcommand*{\honorlocationstyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\upshape\color{awesome} #1}}
 
 % For elements of skill
-\newcommand*{\skilltypestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{12pt}\bodyfontlight\color{text} #1\par}}
+\newcommand*{\skilltypestyle}[1]{{\fontsize{9pt}{12.5pt}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{12.5pt}\bodyfont\color{text} #1\par}}
 
 % For elements of the cover letter
-\newcommand*{\lettersectionstyle}[1]{{\fontsize{14pt}{1em}\bodyfont\bfseries\color{text}\@sectioncolor #1}}
-\newcommand*{\recipientaddressstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\scshape\color{graytext} #1}}
-\newcommand*{\recipienttitlestyle}[1]{{\fontsize{11pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\lettertitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfontlight\bfseries\color{darktext} \underline{#1}}}
-\newcommand*{\letterdatestyle}[1]{{\fontsize{9pt}{1em}\bodyfontlight\slshape\color{graytext} #1}}
-\newcommand*{\lettertextstyle}{\fontsize{10pt}{1.4em}\bodyfontlight\upshape\color{graytext}}
-\newcommand*{\letternamestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\letterenclosurestyle}[1]{{\fontsize{10pt}{1em}\bodyfontlight\slshape\color{lighttext} #1}}
+\newcommand*{\lettersectionstyle}[1]{{\fontsize{13pt}{1em}\bodyfont\bfseries\color{awesome} #1}}
+\newcommand*{\recipientaddressstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext} #1}}
+\newcommand*{\recipienttitlestyle}[1]{{\fontsize{11pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\lettertitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{text} \underline{#1}}}
+\newcommand*{\letterdatestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\upshape\color{graytext} #1}}
+\newcommand*{\lettertextstyle}{\fontsize{10pt}{1.45em}\bodyfont\upshape\color{text}}
+\newcommand*{\letternamestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\newcommand*{\letterenclosurestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\upshape\color{graytext} #1}}
 
 
 %-------------------------------------------------------------------------------
@@ -389,16 +421,22 @@
 \newcommand{\acvHeaderAfterPositionSkip}{.4mm}
 \newcommand{\acvHeaderAfterAddressSkip}{-.5mm}
 \newcommand{\acvHeaderIconSep}{\space}
-\newcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
+% The colored icons already separate the items, so only space is needed
+\newcommand{\acvHeaderSocialSep}{\hspace{1.4em}}
 \newcommand{\acvHeaderAfterSocialSkip}{6mm}
 \newcommand{\acvHeaderAfterQuoteSkip}{5mm}
 
 % Others
 \newcommand{\acvSectionTopSkip}{3mm}
+% Space a section heading needs below it to stay with its first entry
+\newcommand{\acvSectionNeedSpace}{8\baselineskip}
 \newcommand{\acvSectionContentTopSkip}{2.5mm}
 % Space between entries, and width of the skill-type column in the skills table
 \newcommand{\acvEntrySkip}{3mm}
-\newcommand{\acvSkillTypeWidth}{4.4cm}
+\newcommand{\acvSkillTypeWidth}{4.0cm}
+% Widths of the date and link columns in the honors list
+\newcommand{\acvHonorDateWidth}{1.7cm}
+\newcommand{\acvHonorLinkWidth}{2.6cm}
 \newcommand{\acvSkillSep}{3mm}
 
 
@@ -409,12 +447,31 @@
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+% Left-aligned and top-aligned, so a label lines up with the first line of
+% its text
+\newcolumntype{P}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}p{#1}}
 
 % Use to draw horizontal line with specific thickness
 \def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
 
 % Use to execute conditional statements by checking empty string
 \newcommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}}
+
+% Start a new page only if less than #1 of vertical space is left.
+% Unlike \needspace from the needspace package, this adds no "good break"
+% penalty, so a section that fits on the page is not pushed to the next one.
+\newcommand*{\acv@needspace}[1]{%
+  \par
+  \begingroup
+    \setlength{\dimen@}{#1}%
+    \dimen@ii\pagegoal
+    \advance\dimen@ii-\pagetotal
+    \ifdim\dimen@>\dimen@ii
+      \ifdim\dimen@ii>\z@\vfil\fi
+      \penalty-\@M
+    \fi
+  \endgroup
+}
 
 
 %-------------------------------------------------------------------------------
@@ -461,80 +518,80 @@
       \ifthenelse{\isundefined{\@mobile}}%
         {}%
         {%
-          \faMobile\acvHeaderIconSep\@mobile%
+          \headericonstyle{\faMobile}\acvHeaderIconSep\@mobile%
           \setbool{isstart}{false}%
         }%
       \ifthenelse{\isundefined{\@email}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{mailto:\@email}{\faEnvelope\acvHeaderIconSep\@email}%
+          \href{mailto:\@email}{\headericonstyle{\faEnvelope}\acvHeaderIconSep\@email}%
         }%
       \ifthenelse{\isundefined{\@homepage}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{http://\@homepage}{\faHome\acvHeaderIconSep\@homepage}%
+          \href{http://\@homepage}{\headericonstyle{\faHome}\acvHeaderIconSep\@homepage}%
         }%
       \ifthenelse{\isundefined{\@github}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://github.com/\@github}{\faGithubSquare\acvHeaderIconSep\@github}%
+          \href{https://github.com/\@github}{\headericonstyle{\faGithubSquare}\acvHeaderIconSep\@github}%
         }%
       \ifthenelse{\isundefined{\@gitlab}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://gitlab.com/\@gitlab}{\faGitlab\acvHeaderIconSep\@gitlab}%
+          \href{https://gitlab.com/\@gitlab}{\headericonstyle{\faGitlab}\acvHeaderIconSep\@gitlab}%
         }%
       \ifthenelse{\isundefined{\@stackoverflowid}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://stackoverflow.com/users/\@stackoverflowid}{\faStackOverflow\acvHeaderIconSep\@stackoverflowname}%
+          \href{https://stackoverflow.com/users/\@stackoverflowid}{\headericonstyle{\faStackOverflow}\acvHeaderIconSep\@stackoverflowname}%
         }%
       \ifthenelse{\isundefined{\@linkedin}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedin\acvHeaderIconSep\@linkedin}%
+          \href{https://www.linkedin.com/in/\@linkedin}{\headericonstyle{\faLinkedin}\acvHeaderIconSep\@linkedin}%
         }%
       \ifthenelse{\isundefined{\@twitter}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://twitter.com/\@twitter}{\faTwitter\acvHeaderIconSep\@twitter}%
+          \href{https://twitter.com/\@twitter}{\headericonstyle{\faTwitter}\acvHeaderIconSep\@twitter}%
         }%
       \ifthenelse{\isundefined{\@skype}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \faSkype\acvHeaderIconSep\@skype%
+          \headericonstyle{\faSkype}\acvHeaderIconSep\@skype%
         }%
       \ifthenelse{\isundefined{\@reddit}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.reddit.com/user/\@reddit}{\faReddit\acvHeaderIconSep\@reddit}%
+          \href{https://www.reddit.com/user/\@reddit}{\headericonstyle{\faReddit}\acvHeaderIconSep\@reddit}%
         }%
       \ifthenelse{\isundefined{\@xing}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.xing.com/profile/\@xing}{\faXingSquare\acvHeaderIconSep\@xing}
+          \href{https://www.xing.com/profile/\@xing}{\headericonstyle{\faXingSquare}\acvHeaderIconSep\@xing}
         }%
       \ifthenelse{\isundefined{\@medium}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://medium.com/@\@medium}{\faMedium\acvHeaderIconSep\@medium}%
+          \href{https://medium.com/@\@medium}{\headericonstyle{\faMedium}\acvHeaderIconSep\@medium}%
         }%
       \ifthenelse{\isundefined{\@googlescholarid}}%
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://scholar.google.com/citations?user=\@googlescholarid}{\faGraduationCap\acvHeaderIconSep\@googlescholarname}%
+          \href{https://scholar.google.com/citations?user=\@googlescholarid}{\headericonstyle{\faGraduationCap}\acvHeaderIconSep\@googlescholarname}%
         }%
       \ifthenelse{\isundefined{\@extrainfo}}%
         {}%
@@ -564,10 +621,12 @@
 % Define a section for CV
 % Usage: \cvsection{<section-title>}
 \newcommand{\cvsection}[1]{%
+  \acv@needspace{\acvSectionNeedSpace}%
   \vspace{\acvSectionTopSkip}
   \sectionstyle{#1}
   \phantomsection
-  \color{gray}\vhrulefill{0.9pt}
+  {\color{awesome!35}\vhrulefill{0.6pt}}
+  \par\nopagebreak
 }
 
 % Define a subsection for CV
@@ -601,15 +660,21 @@
 \newcommand*{\cventry}[6]{%
   {\setlength{\parindent}{0pt}\raggedright
   \if\relax\detokenize{#2#3}\relax
-    {\fontsize{8pt}{11pt}\selectfont\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}
+    {\fontsize{9pt}{12pt}\selectfont\leavevmode\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}
   \else
-    {\fontsize{10pt}{13pt}\selectfont\entrytitlestyle{#2}\hfill\entrylocationstyle{#3}\par}\nopagebreak
-    {\fontsize{8pt}{11pt}\selectfont\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}\nopagebreak
+    % \leavevmode starts each line before its \color, so no page break can
+    % fall inside the entry header
+    {\fontsize{10.5pt}{14pt}\selectfont\leavevmode\entrytitlestyle{#2}\hfill\entrylocationstyle{#3}\par}\nopagebreak
+    {\fontsize{9pt}{12pt}\selectfont\leavevmode\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}\nopagebreak
     \if\relax\detokenize{#5}\relax\else
-      \vspace{0.5mm}\entryskillstyle{#5}\nopagebreak
+      \vspace{0.8mm}%
+      {\interlinepenalty\@M\clubpenalty\@M\widowpenalty\@M
+        \leavevmode\entryskillstyle{#5}}\nopagebreak
     \fi
   \fi
-  \vspace{0.8mm}
+  \vspace{1mm}
+  % Keep the entry header on the same page as its first bullet
+  \@beginparpenalty\@M
   \descriptionstyle{#6}\par}%
   \vspace{\acvEntrySkip}%
 }
@@ -639,51 +704,63 @@
 }
 
 % Define an environment for cvhonor
+% Each honor is its own row (not one table), so the list can break across
+% pages instead of moving to the next page as a single block
 \newenvironment{cvhonors}{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-2mm}
-  \begin{center}
-    \setlength\tabcolsep{0pt}
-    \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
+  \vspace{-1mm}
+  \par\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}
 }{%
-    \end{tabular*}
-  \end{center}
+  \par
+  \vspace{\acvEntrySkip}
 }
 % Define a line of cv information(honor, award or something else)
 % Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
 \newcommand*{\cvhonor}[4]{%
-  \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+  \makebox[\acvHonorDateWidth][l]{\honordatestyle{#4}}%
+  \parbox[t]{\dimexpr\linewidth-\acvHonorDateWidth-\acvHonorLinkWidth\relax}{%
+    \raggedright\leavevmode\honorpositionstyle{#1}, \honortitlestyle{#2}}%
+  \makebox[\acvHonorLinkWidth][r]{\honorlocationstyle{#3}}%
+  \par
 }
 
 % Define an environment for cvskill
+% Each skill is its own row (not one table), so the list can break across
+% pages instead of moving to the next page as a single block
 \newenvironment{cvskills}{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-2.0mm}
-  \begin{center}
-    \setlength\tabcolsep{0pt}
-    \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{} R{\acvSkillTypeWidth} @{\hspace{\acvSkillSep}} L{\textwidth - \acvSkillTypeWidth - \acvSkillSep} @{}}
+  \vspace{-1mm}
+  \par\setlength{\parskip}{0pt}\setlength{\parindent}{0pt}
 }{%
-    \end{tabular*}
-  \end{center}
+  \par
+  \vspace{\acvEntrySkip}
 }
 % Define a line of cv information(skill)
 % Usage: \cvskill{<type>}{<skillset>}
 \newcommand*{\cvskill}[2]{%
-	\skilltypestyle{#1} & \skillsetstyle{#2} \\[1.2mm]
+  \parbox[t]{\acvSkillTypeWidth}{\raggedright\leavevmode\skilltypestyle{#1}}%
+  \hspace{\acvSkillSep}%
+  \parbox[t]{\dimexpr\linewidth-\acvSkillTypeWidth-\acvSkillSep\relax}{%
+    \raggedright\leavevmode\skillsetstyle{#2}}%
+  \par\vspace{1.2mm}%
 }
 
 % Define an environment for cvitems(for cventry)
+% Left-aligned (ragged right) with no hyphenation, so word spacing stays even
+% and words are not split across lines
 \newenvironment{cvitems}{%
-  \begin{justify}
-  \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
+  \raggedright
+  \hyphenpenalty=10000
+  \begin{itemize}[leftmargin=2.2ex, labelsep=1ex, nosep, itemsep=0.5pt]
     \setlength{\parskip}{0pt}
-    \renewcommand{\labelitemi}{\bullet}
+    \renewcommand{\labelitemi}{{\color{graytext}\textbullet}}
 }{%
   \end{itemize}
-  \end{justify}
 }
+
+% Bold lead-in label for a cvitems bullet
+% Usage: \item {\itemlabel{Observability:} Built the monitoring stack ...}
+\newcommand*{\itemlabel}[1]{\itemlabelstyle{#1}}
 
 
 %-------------------------------------------------------------------------------
@@ -701,7 +778,7 @@
   \par\addvspace{2.5ex}
   \phantomsection{}
   \lettersectionstyle{#1}
-  \color{gray}\vhrulefill{0.9pt}
+  {\color{awesome!35}\vhrulefill{0.6pt}}
   \par\nobreak\addvspace{0.4ex}
 }
 

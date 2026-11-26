@@ -13,26 +13,26 @@
     {Software Engineer} % Job title
     {CP AXTRA Public Company Limited} % Organization
     {Bangkok, Thailand} % Location
-    {July 2025 - Present} % Date(s)
+    {July 2025 -- Present} % Date(s)
     {Skill: C++17 · Qt 6/QML · CMake · vcpkg · Rust · Angular · TypeScript · C\# · PostgreSQL · SQLite/SQLCipher · Oracle · ActiveMQ · ActiveMQ Artemis · WebRTC · Docker · Kubernetes/Helm · GitLab CI/CD · Terraform · AWS · Prometheus · Grafana · Loki · Azure AD · WiX/MSI · PowerShell} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
-      \item {POS Architecture \& Modernization: Helped design the POS system architecture; primary developer of the store point-of-sale (POS) application, driving its incremental (Strangler Fig) migration from a legacy Win32/C\# WinForms application to cross-platform C++17/Qt 6: hosted the C\# GUI in-process via a C++/CLI bridge, completed the MBCS-to-UTF-8 Unicode migration, replaced the Win32 message pump with the Qt event loop, and moved OPOS devices to Qt services on a dedicated device thread; a QML cashier UI and QStateMachine engine are in progress.}
-      \item {Terminal Agent \& Remote Support: Built a terminal agent, a Windows service that supervises the POS and upgrades it through A/B slots with first-boot probation and automatic rollback, plus a WebRTC remote-desktop tool (DXGI screen capture) for technician support.}
-      \item {Fleet Management Portal: Built the head-office portal for the POS fleet as an Angular 21 SPA with a Rust (Axum) backend-for-frontend and PostgreSQL, secured with Azure AD (Entra ID) single sign-on, role-based access control, passkey (WebAuthn) step-up MFA, and a tamper-evident audit log.}
-      \item {Fleet Operations: Delivered portal features for till registration and status, fault and inventory timelines, staged software and configuration rollouts, receipt and screen-ad campaigns, ESC/P print capture, and WebRTC remote sessions.}
-      \item {MCP Integration: Added a read-only MCP endpoint to the fleet management portal so AI assistants can query fleet data with each user's own permissions.}
-      \item {Observability: Built the monitoring stack (Prometheus, Grafana, Loki, Tempo, Alloy) with a Rust ActiveMQ exporter, automated dead-letter-queue cleanup, and an adaptive HTTP load tester for QA APIs; wrote a Rust Windows service with a terminal UI that health-checks store backend services and ships telemetry to Loki, packaged as a signed MSI with self-update.}
-      \item {Retail Integrations: Developed and maintained POS integrations for e-Tax invoices, EDC card terminals, QR and e-payment, loyalty programs, promotions, receipt printing, and ActiveMQ messaging with broker reconnection handling.}
-      \item {Customer Display: Rebuilt the customer-facing display from Java/Swing as a Qt Quick window inside the POS process; maintained the Java country variants, including the Cambodia KHQR payment screen and ad-image caching with scheduled refresh.}
-      \item {Data \& Security: Moved the legacy c-tree store database behind repository interfaces and built an encrypted SQLite (SQLCipher) backend with direct Oracle-to-SQLCipher sync; designed hybrid post-quantum envelope encryption (ML-KEM + X25519, AES-GCM) so data held in cloud storage exists only as ciphertext.}
-      \item {Build \& CI/CD: Introduced GitLab CI/CD for the POS on Windows Server Docker runners (CMake presets, vcpkg manifests with an S3 binary cache, sccache, release automation) and S3-delivered update packages with install and rollback scripts; modernized the codebase from C++14 to C++17.}
-      \item {AI-Assisted Engineering: Built nightly AI code-audit pipelines in GitLab CI in which agents propose refactor, cleanup, testing, design, and performance fixes; a merge request is opened only when a before/after build and test run shows no regression, and companion jobs review human merge requests and self-heal failing bot ones.}
-      \item {CI Reliability: Wrote a Rust Windows service (signed MSI) for weekend maintenance of Windows Docker GitLab runner hosts (container-layer cleanup, Docker/Runner/Windows updates, base-image warm-up); analyzed pipeline and job-log history, showing from-source vcpkg builds consumed 45\% of Windows runner time, and isolated the cause with an OpenSSL build reproduction.}
-      \item {Messaging: Migrated the POS messaging infrastructure from Apache ActiveMQ to ActiveMQ Artemis; maintain NeoActiveMQ-CPP (\href{https://github.com/blackb1rd/neoactivemq-cpp}{github.com/blackb1rd/neoactivemq-cpp}), an open-source C++17 fork of Apache ActiveMQ-CPP used by the POS (failover/reconnect and thread-safety fixes, SSL, Linux/macOS/Windows CI), published through a custom vcpkg registry; built an offline RPM installer that deploys a tuned, containerized ActiveMQ broker.}
-      \item {Cloud Migration Experiment: Used Terraform to experiment with migrating the on-premises ActiveMQ brokers to AWS-hosted ActiveMQ.}
-      \item {Artemis Architecture: Designed the end-to-end ActiveMQ Artemis architecture, running on Kubernetes via a Helm chart across two Availability Zones with the broker in each zone mirroring the other.}
-      \item {Cross-Department Collaboration: Worked across departments with the DevOps, Marketing, and Store Support teams on infrastructure and monitoring, receipt and screen-ad campaigns, and remote store support.}
+      \item {\itemlabel{POS Architecture \& Modernization:} Helped design the POS system architecture; primary developer of the store point-of-sale (POS) application, driving its incremental (Strangler Fig) migration from a legacy Win32/C\# WinForms application to cross-platform C++17/Qt 6: hosted the C\# GUI in-process via a C++/CLI bridge, completed the MBCS-to-UTF-8 Unicode migration, replaced the Win32 message pump with the Qt event loop, and moved OPOS devices to Qt services on a dedicated device thread; a QML cashier UI and QStateMachine engine are in progress.}
+      \item {\itemlabel{Terminal Agent \& Remote Support:} Built a terminal agent, a Windows service that supervises the POS and upgrades it through A/B slots with first-boot probation and automatic rollback, plus a WebRTC remote-desktop tool (DXGI screen capture) for technician support.}
+      \item {\itemlabel{Fleet Management Portal:} Built the head-office portal for the POS fleet as an Angular 21 SPA with a Rust (Axum) backend-for-frontend and PostgreSQL, secured with Azure AD (Entra ID) single sign-on, role-based access control, passkey (WebAuthn) step-up MFA, and a tamper-evident audit log.}
+      \item {\itemlabel{Fleet Operations:} Delivered portal features for till registration and status, fault and inventory timelines, staged software and configuration rollouts, receipt and screen-ad campaigns, ESC/P print capture, and WebRTC remote sessions.}
+      \item {\itemlabel{MCP Integration:} Added a read-only MCP endpoint to the fleet management portal so AI assistants can query fleet data with each user's own permissions.}
+      \item {\itemlabel{Observability:} Built the monitoring stack (Prometheus, Grafana, Loki, Tempo, Alloy) with a Rust ActiveMQ exporter, automated dead-letter-queue cleanup, and an adaptive HTTP load tester for QA APIs; wrote a Rust Windows service with a terminal UI that health-checks store backend services and ships telemetry to Loki, packaged as a signed MSI with self-update.}
+      \item {\itemlabel{Retail Integrations:} Developed and maintained POS integrations for e-Tax invoices, EDC card terminals, QR and e-payment, loyalty programs, promotions, receipt printing, and ActiveMQ messaging with broker reconnection handling.}
+      \item {\itemlabel{Customer Display:} Rebuilt the customer-facing display from Java/Swing as a Qt Quick window inside the POS process; maintained the Java country variants, including the Cambodia KHQR payment screen and ad-image caching with scheduled refresh.}
+      \item {\itemlabel{Data \& Security:} Moved the legacy c-tree store database behind repository interfaces and built an encrypted SQLite (SQLCipher) backend with direct Oracle-to-SQLCipher sync; designed hybrid post-quantum envelope encryption (ML-KEM + X25519, AES-GCM) so data held in cloud storage exists only as ciphertext.}
+      \item {\itemlabel{Build \& CI/CD:} Introduced GitLab CI/CD for the POS on Windows Server Docker runners (CMake presets, vcpkg manifests with an S3 binary cache, sccache, release automation) and S3-delivered update packages with install and rollback scripts; modernized the codebase from C++14 to C++17.}
+      \item {\itemlabel{AI-Assisted Engineering:} Built nightly AI code-audit pipelines in GitLab CI in which agents propose refactor, cleanup, testing, design, and performance fixes; a merge request is opened only when a before/after build and test run shows no regression, and companion jobs review human merge requests and self-heal failing bot ones.}
+      \item {\itemlabel{CI Reliability:} Wrote a Rust Windows service (signed MSI) for weekend maintenance of Windows Docker GitLab runner hosts (container-layer cleanup, Docker/Runner/Windows updates, base-image warm-up); analyzed pipeline and job-log history, showing from-source vcpkg builds consumed 45\% of Windows runner time, and isolated the cause with an OpenSSL build reproduction.}
+      \item {\itemlabel{Messaging:} Migrated the POS messaging infrastructure from Apache ActiveMQ to ActiveMQ Artemis; maintain \href{https://github.com/blackb1rd/neoactivemq-cpp}{NeoActiveMQ-CPP}, an open-source C++17 fork of Apache ActiveMQ-CPP used by the POS (failover/reconnect and thread-safety fixes, SSL, Linux/macOS/Windows CI), published through a custom vcpkg registry; built an offline RPM installer that deploys a tuned, containerized ActiveMQ broker.}
+      \item {\itemlabel{Cloud Migration Experiment:} Used Terraform to experiment with migrating the on-premises ActiveMQ brokers to AWS-hosted ActiveMQ.}
+      \item {\itemlabel{Artemis Architecture:} Designed the end-to-end ActiveMQ Artemis architecture, running on Kubernetes via a Helm chart across two Availability Zones with the broker in each zone mirroring the other.}
+      \item {\itemlabel{Cross-Department Collaboration:} Worked across departments with the DevOps, Marketing, and Store Support teams on infrastructure and monitoring, receipt and screen-ad campaigns, and remote store support.}
       \end{cvitems}
     }
 
@@ -41,23 +41,23 @@
     {Software Engineer} % Job title
     {MLOptic} % Organization
     {Chon Buri, Thailand} % Location
-    {August 2022 - June 2025} % Date(s)
+    {August 2022 -- June 2025} % Date(s)
     {Skill: CMake · C++ · Qt · Linux · OpenCV · Git · Jira · Python Programming Language · Github action · Continuous Integration and Continuous Delivery (CI/CD) · vcpkg · OpenCL · KiCAD · Printed Circuit Board (PCB) Design · Docker · Go (Programming Language) · Angular · OpenCL Programming} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
       \item {Directed Software and Electrical teams to deliver integrated software-hardware solutions; mentored team, conducted code reviews, and enforced best practices.}
-      \item {Framework Optimization: Architected scalable Qt/C++ frameworks, enhancing code maintainability and reusability, cutting test time from 2.45 hours to 45 minutes.}
-      \item {Image Processing: Developed and optimized OpenCV/OpenCL, improving performance and accuracy for real-time applications.}
-      \item {Full-Stack Development: Designed and developed a Manufacturing Execution System (MES) from scratch as micro services using Angular for frontend, GoLang for backend, MySQL for database, Minio for object storage, and Cypress for comprehensive end-to-end testing.}
-      \item {Pipeline \& Repository Management: Configured GitLab/GitHub with CI/CD pipelines, access controls, and branching strategies, streamlining workflows and ensuring code quality.}
-      \item {Containerization: Implemented Docker for consistent C++ and Qt compilation, minimizing build discrepancies across environments.}
-      \item {Dependency Streamlining: Integrated VCPKG into CI/CD pipelines for efficient C++ package management, accelerating build processes.}
-      \item {Infrastructure Setup: Deployed and managed GitLab server, MinIO server for object storage, and NGINX for reverse proxy.}
-      \item {PCB Design \& Validation: Designed and validated PCB layouts for high-speed signals, including USB 3.0, ensuring performance and reliability compliance.}
-      \item {Network Security: Strengthened security with firewalls, VPNs, and routing policies, protecting assets.}
-      \item {DNS \& Collaboration: Administered DNS servers for domain/subdomain configurations; set up secure shared folders with access controls for collaboration.}
-      \item {Website Deployment: company website, managing domain, hosting, and maintenance.}
-      \item {Knowledge Management: centralized wiki server to enhance documentation.}
+      \item {\itemlabel{Framework Optimization:} Architected scalable Qt/C++ frameworks, enhancing code maintainability and reusability, cutting test time from 2.45 hours to 45 minutes.}
+      \item {\itemlabel{Image Processing:} Developed and optimized OpenCV/OpenCL, improving performance and accuracy for real-time applications.}
+      \item {\itemlabel{Full-Stack Development:} Designed and developed a Manufacturing Execution System (MES) from scratch as micro services using Angular for frontend, GoLang for backend, MySQL for database, Minio for object storage, and Cypress for comprehensive end-to-end testing.}
+      \item {\itemlabel{Pipeline \& Repository Management:} Configured GitLab/GitHub with CI/CD pipelines, access controls, and branching strategies, streamlining workflows and ensuring code quality.}
+      \item {\itemlabel{Containerization:} Implemented Docker for consistent C++ and Qt compilation, minimizing build discrepancies across environments.}
+      \item {\itemlabel{Dependency Streamlining:} Integrated VCPKG into CI/CD pipelines for efficient C++ package management, accelerating build processes.}
+      \item {\itemlabel{Infrastructure Setup:} Deployed and managed GitLab server, MinIO server for object storage, and NGINX for reverse proxy.}
+      \item {\itemlabel{PCB Design \& Validation:} Designed and validated PCB layouts for high-speed signals, including USB 3.0, ensuring performance and reliability compliance.}
+      \item {\itemlabel{Network Security:} Strengthened security with firewalls, VPNs, and routing policies, protecting assets.}
+      \item {\itemlabel{DNS \& Collaboration:} Administered DNS servers for domain/subdomain configurations; set up secure shared folders with access controls for collaboration.}
+      \item {\itemlabel{Website Deployment:} company website, managing domain, hosting, and maintenance.}
+      \item {\itemlabel{Knowledge Management:} centralized wiki server to enhance documentation.}
       \end{cvitems}
     }
 
@@ -66,7 +66,7 @@
     {Full Stack Developer | Part-time} % Job title
     {Krungthai Bank} % Organization
     {Bangkok, Thailand} % Location
-    {June 2022 - Dec 2022} % Date(s)
+    {June 2022 -- Dec 2022} % Date(s)
     {Skill: Angular · TypeScript · Golang Programming Language · Gin · MySQL · Sequelize · Cypress · Docker · Kubernetes · Rancher · CI/CD · OWASP · JWT · Microservices} % Skill
     {
     \begin{cvitems} % Description(s) of tasks/responsibilities
@@ -83,7 +83,7 @@
     {Software/Test Engineer} % Job title
     {Magnecomp} % Organization
     {Wang Noi, Ayutthaya, Thailand} % Location
-    {August 2021 - June 2022} % Date(s)
+    {August 2021 -- June 2022} % Date(s)
     {Skill: C\# · WinForms · Cognex Image Processing · Linear Regression · LCR Impedance Measurement · S-parameter Analysis · RF PCB Design · 50-ohm Transmission Lines} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
@@ -100,7 +100,7 @@
     {Design/Test/Software Engineer} % Job title
     {Fabrinet} % Organization
     {Kookot, Lumlookka Patumthanee, Thailand} % Location
-    {April 2018 - July 2021} % Date(s)
+    {April 2018 -- July 2021} % Date(s)
     {Skill: C\# · VB.NET · GoLang · WinForms · WPF · MVVM pattern · Asynchronous programming · MySQL · KiCad · PCB Design · Fiber Optics · High-frequency (THz) · SPI · I2C · MDIO · Mach-Zehnder modulator} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
@@ -131,7 +131,7 @@
     {Software Engineer} % Job title
     {BOMBARDIER} % Organization
     {Klongton, Klontoey Thailand} % Location
-    {August 2017 - March 2018} % Date(s)
+    {August 2017 -- March 2018} % Date(s)
     {Skill: C · C++ · Python · TCL · Makefile · Shell Script · cmocka · Event Loop Programming · Asyncio · Asynchronous Programming · GDB · Git · Socket Communication · CentOS · Linux · SIL4} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
@@ -149,7 +149,7 @@
     {Test \& Software Engineer} % Job title
     {Fabrinet} % Organization
     {Kookot, Lumlookka Patumthanee, Thailand} % Location
-    {May 2016 - July 2017} % Date(s)
+    {May 2016 -- July 2017} % Date(s)
     {Skill: C\# · VB.NET · VB6 · C++ · Perl · WinForms · RS232 · Fiber Optics · TX/RX Testing · Eye Diagram Analysis · EDFA · VNA · Statistical Methods · Database Design} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
@@ -171,7 +171,7 @@
     {Firmware Engineer} % Job title
     {Western Digital} % Organization
     {Bangpa-in, Thailand.} % Location
-    {October 2013 - April 2016} % Date(s)
+    {October 2013 -- April 2016} % Date(s)
     {Skill: C · SVN · Perl · GCC · ARMCC · Makefile · Ubuntu · Embedded Systems · JTAG Debugging · Binary Analysis · Hard Disk · SATA · Vendor Specific Commands (VSC) · Firmware Development} % Skill
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
