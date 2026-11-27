@@ -1,0 +1,6 @@
+# Send only the files the build needs to Docker
+*
+!awesome-cv.cls
+!resume.tex
+!fonts/
+!sections/

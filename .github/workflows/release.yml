@@ -22,15 +22,11 @@ jobs:
   build:
     name: Build CV
     runs-on: ubuntu-latest
-    container:
-      image: texlive/texlive:latest
     steps:
       - name: Git checkout
         uses: actions/checkout@v7
       - name: Compile
-        shell: bash
-        run: |
-          make
+        run: docker build --pull --output build .
       - name: Archive CV artifacts
         uses: actions/upload-artifact@v7
         with:
