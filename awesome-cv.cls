@@ -308,7 +308,16 @@
 
 % Defines writer's mobile (optional)
 % Usage: \mobile{<mobile number>}
-\newcommand*{\mobile}[1]{\def\@mobile{#1}}
+% The number is shown as written and links to tel:<digits and +>, so a tap
+% on a phone dials it, e.g. "(+66) 85-334-3845" -> tel:+66853343845
+\ExplSyntaxOn
+\cs_new_protected:Npn \mobile #1
+  {
+    \def\@mobile{#1}
+    \tl_set:Nn \@mobiletel {#1}
+    \regex_replace_all:nnN { [^0-9+] } { } \@mobiletel
+  }
+\ExplSyntaxOff
 
 % Defines writer's email (optional)
 % Usage: \email{<email address>}
@@ -523,7 +532,7 @@
       \ifthenelse{\isundefined{\@mobile}}%
         {}%
         {%
-          \headericonstyle{\faMobile}\acvHeaderIconSep\@mobile%
+          \href{tel:\@mobiletel}{\headericonstyle{\faMobile}\acvHeaderIconSep\@mobile}%
           \setbool{isstart}{false}%
         }%
       \ifthenelse{\isundefined{\@email}}%
