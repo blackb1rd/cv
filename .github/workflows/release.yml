@@ -36,7 +36,7 @@ jobs:
         with:
           name: cv
           path: |
-            examples/*.pdf
+            build/*.pdf
 
   release:
     name: Tag and release
