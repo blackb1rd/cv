@@ -775,10 +775,13 @@
 
 % Define an environment for cvitems(for cventry)
 % Left-aligned (ragged right) with no hyphenation, so word spacing stays even
-% and words are not split across lines
+% and words are not split across lines. A bullet never splits across pages:
+% since the header is kept with the first bullet, a short entry near the
+% bottom of a page moves to the next page whole
 \newenvironment{cvitems}{%
   \raggedright
   \hyphenpenalty=10000
+  \interlinepenalty\@M
   \begin{itemize}[leftmargin=2.2ex, labelsep=1ex, nosep, itemsep=0.5pt]
     \setlength{\parskip}{0pt}
     \renewcommand{\labelitemi}{{\color{graytext}\textbullet}}
