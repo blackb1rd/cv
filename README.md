@@ -90,7 +90,7 @@ $ orb start
 $ docker --context orbstack build --output build .
 ```
 
-`orb start` does nothing if OrbStack is already running. This should result in the creation of ``build/resume.pdf``.
+`orb start` does nothing if OrbStack is already running. This should result in the creation of ``build/Prachya-Saechua-CV.pdf``.
 Add `--pull` to use the newest TeX Live image, as CI does. CI runs the same build with the Docker engine that comes
 with GitHub's Linux runners, since OrbStack is a macOS app.
 

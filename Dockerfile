@@ -1,9 +1,9 @@
-# Builds the resume PDF with TeX Live, with nothing to install locally.
+# Builds the CV PDF with TeX Live, with nothing to install locally.
 #
 #   orb start
 #   docker --context orbstack build --output build .
 #
-# writes build/resume.pdf. Add --pull to fetch the newest TeX Live image first.
+# writes build/Prachya-Saechua-CV.pdf. Add --pull to fetch the newest TeX Live image first.
 # CI runs plain `docker build`, since GitHub's Linux runners have Docker built in.
 
 # Full TeX Live, the same image the GitHub Actions workflows use
@@ -12,9 +12,11 @@ WORKDIR /cv
 COPY awesome-cv.cls resume.tex ./
 COPY fonts/ fonts/
 COPY sections/ sections/
-# latexmk reruns XeLaTeX until cross-references and PDF bookmarks settle
-RUN latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=build resume.tex
+# latexmk reruns XeLaTeX until cross-references and PDF bookmarks settle.
+# -jobname names the PDF after its owner, since recruiters collect many resume.pdf files
+RUN latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=build \
+      -jobname=Prachya-Saechua-CV resume.tex
 
 # Export stage: holds only the PDF, so --output writes just that file
 FROM scratch
-COPY --from=build /cv/build/resume.pdf /
+COPY --from=build /cv/build/Prachya-Saechua-CV.pdf /
