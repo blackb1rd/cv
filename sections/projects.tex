@@ -16,11 +16,12 @@
     {Creator \& Maintainer} % Role
     {fugo} % Project
     {\href{https://github.com/getfugo/fugo}{github.com/getfugo/fugo}} % Location
-    {Oct. 2026 - Present} % Date(s)
-    {Skill: Rust · Tera · Static Site Generation · Multilingual (i18n) · Asset Pipelines · Docker · GitHub Actions} % Skill
+    {Oct. 2020 - Present} % Date(s)
+    {Skill: Rust · Go · Tera · Static Site Generation · Multilingual (i18n) · Asset Pipelines · Docker · GitHub Actions} % Skill
     {
       \begin{cvitems} % Description(s)
-        \item {Rewrote the Go-based Neohugo static site generator in Rust, keeping its project layout, content model and configuration keys, with Tera 2 templates in place of Go templates.}
+        \item {Started in 2020 as Neohugo, a Go fork of Hugo that added multilingual support and custom output formats (AMP), maintained through bug fixes, refactoring and code cleanup.}
+        \item {Rewrote it in Rust in 2026, keeping its project layout, content model and configuration keys, with Tera 2 templates in place of Go templates.}
         \item {Built asset pipelines for image processing, TypeScript/JSX bundling, Sass compilation, CSS minification with browserslist-based prefixing, and per-page unused-CSS purging; installs npm packages without Node.js.}
         \item {Verified output against the Go implementation in tests; releases ship binaries for Linux, macOS and Windows plus a multi-arch container image on GHCR.}
       \end{cvitems}
@@ -29,14 +30,15 @@
 %---------------------------------------------------------
   \cventry
     {Maintainer} % Role
-    {Neohugo} % Project
-    {\href{https://github.com/neohugo/neohugo}{github.com/neohugo/neohugo}} % Location
-    {Oct. 2020 - Present} % Date(s)
-    {Skill: Go · Hugo · Static Site Generation · Multilingual (i18n) · Refactoring} % Skill
+    {NeoActiveMQ-CPP} % Project
+    {\href{https://github.com/blackb1rd/neoactivemq-cpp}{github.com/blackb1rd/neoactivemq-cpp}} % Location
+    {Nov. 2025 - Present} % Date(s)
+    {Skill: C++17 · CMake · vcpkg · Asio · OpenSSL · Google Test · ActiveMQ · ActiveMQ Artemis · OpenWire · STOMP · Docker · GitHub Actions} % Skill
     {
       \begin{cvitems} % Description(s)
-        \item {Hugo fork written in Go that adds multilingual support and custom output formats (specifically AMP).}
-        \item {Focused on bug fixes, refactoring and code cleanup.}
+        \item {Modernized fork of Apache ActiveMQ-CPP, the C++ messaging client for ActiveMQ and Artemis brokers (OpenWire, STOMP), moved to C++17: replaced the APR runtime with the standard library, rebuilt the transport on async Asio, and swapped Autotools for CMake presets with vcpkg and CppUnit for Google Test.}
+        \item {Fixed failover and stability bugs: consumers stalling or leaking after repeated failovers, use-after-free during shutdown and in queue browsers, unsynchronized request tracking, and synchronous requests that could wait forever.}
+        \item {Added integration tests against real brokers in Docker Compose (OpenWire, STOMP, SSL with auto-generated certificates, multi-broker failover); CI runs on Linux, macOS and Windows, and releases ship prebuilt binaries for all three.}
       \end{cvitems}
     }
 
