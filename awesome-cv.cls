@@ -76,6 +76,8 @@
 \RequirePackage{fontawesome5}
 % Needed for the photo ID
 \RequirePackage[skins]{tcolorbox}
+% Needed for the organization logos beside entry headers
+\RequirePackage{graphicx}
 % Needed to deal a paragraphs
 \RequirePackage{parskip}
 % Needed to deal hyperlink
@@ -433,6 +435,9 @@
 \newcommand{\acvSectionContentTopSkip}{2.5mm}
 % Space between entries, and width of the skill-type column in the skills table
 \newcommand{\acvEntrySkip}{3mm}
+% Side of the square logo tile beside an entry header, and the gap after it
+\newcommand{\acvEntryLogoSize}{9.5mm}
+\newcommand{\acvEntryLogoGap}{3mm}
 \newcommand{\acvSkillTypeWidth}{4.0cm}
 % Widths of the date and link columns in the honors list
 \newcommand{\acvHonorDateWidth}{1.7cm}
@@ -655,27 +660,50 @@
 }{%
   \end{center}
 }
+% The organization/location and position/date lines of an entry header
+% Usage: \acv@entryheader{<position>}{<organization>}{<location>}{<date>}
+\newcommand*{\acv@entryheader}[4]{%
+  % \leavevmode starts each line before its \color, so no page break can
+  % fall inside the entry header
+  {\fontsize{10.5pt}{14pt}\selectfont\leavevmode\entrytitlestyle{#2}\hfill\entrylocationstyle{#3}\par}\nopagebreak
+  {\fontsize{9pt}{12pt}\selectfont\leavevmode\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}\nopagebreak
+}
+% Square logo tile: the image scaled to fit, or a placeholder building icon
+% (as LinkedIn shows) when the file is missing
+\newcommand*{\acv@entrylogo}[1]{%
+  \parbox[c][\acvEntryLogoSize][c]{\acvEntryLogoSize}{\centering
+    \IfFileExists{#1}
+      {\includegraphics[width=\acvEntryLogoSize,height=\acvEntryLogoSize,keepaspectratio]{#1}}
+      {\ClassWarning{awesome-cv}{Logo file `#1' not found, drawing a placeholder}%
+        {\fontsize{7mm}{7mm}\selectfont\color{lighttext}\faBuilding[regular]}}}%
+}
 % Define an entry of cv information
-% Usage: \cventry{<position>}{<organization>}{<location>}{<date>}{<skill>}{<description>}
-\newcommand*{\cventry}[6]{%
+% Usage: \cventry[<logo file>]{<position>}{<organization>}{<location>}{<date>}{<skill>}{<description>}
+% The optional logo sits left of the organization and position lines
+\newcommand*{\cventry}[7][]{%
   {\setlength{\parindent}{0pt}\raggedright
-  \if\relax\detokenize{#2#3}\relax
-    {\fontsize{9pt}{12pt}\selectfont\leavevmode\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}
+  \if\relax\detokenize{#3#4}\relax
+    {\fontsize{9pt}{12pt}\selectfont\leavevmode\entrypositionstyle{#2}\hfill\entrydatestyle{#5}\par}
   \else
-    % \leavevmode starts each line before its \color, so no page break can
-    % fall inside the entry header
-    {\fontsize{10.5pt}{14pt}\selectfont\leavevmode\entrytitlestyle{#2}\hfill\entrylocationstyle{#3}\par}\nopagebreak
-    {\fontsize{9pt}{12pt}\selectfont\leavevmode\entrypositionstyle{#1}\hfill\entrydatestyle{#4}\par}\nopagebreak
-    \if\relax\detokenize{#5}\relax\else
+    \if\relax\detokenize{#1}\relax
+      \acv@entryheader{#2}{#3}{#4}{#5}%
+    \else
+      % The logo and both header lines are boxes on one line, so they can't
+      % split across pages
+      \leavevmode\acv@entrylogo{#1}\hspace{\acvEntryLogoGap}%
+      \parbox[c]{\dimexpr\linewidth-\acvEntryLogoSize-\acvEntryLogoGap\relax}{\raggedright
+        \acv@entryheader{#2}{#3}{#4}{#5}}\par\nopagebreak
+    \fi
+    \if\relax\detokenize{#6}\relax\else
       \vspace{0.8mm}%
       {\interlinepenalty\@M\clubpenalty\@M\widowpenalty\@M
-        \leavevmode\entryskillstyle{#5}}\nopagebreak
+        \leavevmode\entryskillstyle{#6}}\nopagebreak
     \fi
   \fi
   \vspace{1mm}
   % Keep the entry header on the same page as its first bullet
   \@beginparpenalty\@M
-  \descriptionstyle{#6}\par}%
+  \descriptionstyle{#7}\par}%
   \vspace{\acvEntrySkip}%
 }
 

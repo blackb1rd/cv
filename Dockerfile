@@ -12,6 +12,7 @@ WORKDIR /cv
 COPY awesome-cv.cls resume.tex ./
 COPY fonts/ fonts/
 COPY sections/ sections/
+COPY logos/ logos/
 # latexmk reruns XeLaTeX until cross-references and PDF bookmarks settle.
 # -jobname names the PDF after its owner, since recruiters collect many resume.pdf files
 RUN latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=build \
